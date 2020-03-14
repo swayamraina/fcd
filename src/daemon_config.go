@@ -6,6 +6,7 @@
 package main
 
 
+
 type git_config struct {
 
 	// github username
@@ -19,6 +20,8 @@ type git_config struct {
 
 }
 
+
+
 type refresh_config struct {
 
 	// refresh interval
@@ -28,6 +31,8 @@ type refresh_config struct {
 	Refresh_unit string
 
 }
+
+
 
 type fcd_config struct {
 
