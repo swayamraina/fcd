@@ -12,8 +12,8 @@ type git_config struct {
 	// github username
 	Username string
 
-	// github password
-	Password string
+	// github access token
+	Access_token string
 
 	// github repo
 	Repo string
