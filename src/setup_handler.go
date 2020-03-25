@@ -5,22 +5,24 @@
 
 package main
 
-import "os"
 
 
 func do_local_setup (paths *[]string) {
 	for i:=0; i<len(*paths); i++ {
-		_, err := os.Stat((*paths)[i])
-		if err == nil { continue }
-		if os.IsNotExist(err) { os.Mkdir((*paths)[i], os.ModePerm) }
-		panic(err)
+		exists := check_on_os((*paths)[i])
+		if !exists {
+			create_on_os((*paths)[i])
+		}
 	}
 }
 
 
 
 func  do_git_setup (config *git_config) {
-
+	exists := check_repo_exists(&config.Username, &config.Repo)
+	if !exists {
+		create_repo(&config.Username, &config.Access_token, &config.Repo)
+	}
 }
 
 
