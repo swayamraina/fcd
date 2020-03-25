@@ -1,12 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 )
 
-const sync_indicator = "fcd-"
+const sync_indicator = "fcd-%"
 
 
 func check_on_os (path string) bool {
@@ -27,9 +28,16 @@ func create_on_os (path string) bool {
 
 func check_sync (files *[]string) filepath.WalkFunc {
 	return func (path string, info os.FileInfo, err error) error {
-		if !strings.HasPrefix(info.Name(), sync_indicator) {
+		if !info.IsDir() && !strings.HasPrefix(info.Name(), sync_indicator) {
 			*files = append(*files, path)
 		}
 		return nil
 	}
+}
+
+
+func mark_sync (file string) bool {
+	new_file := fmt.Sprintf(sync_indicator, file)
+	err := os.Rename(file, new_file)
+	return err != nil
 }
