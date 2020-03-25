@@ -16,12 +16,9 @@ import (
  * daemon config object at startup.
 **/
 func get_config (path string) fcd_config {
-
 	data, err := ioutil.ReadFile(path)
 	if err != nil { panic(err) }
-
 	var config fcd_config
 	yaml.Unmarshal(data, &config)
-
 	return config
 }
