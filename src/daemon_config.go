@@ -1,16 +1,26 @@
 /**
+ *
  * @author: swayamraina@gmail.com
  * @dated : 14.03.2020
+ *
 **/
+
 
 package main
 
 
-
+/**
+ *
+ * DS for github connection
+ *
+**/
 type git_config struct {
 
 	// github username
 	Username string
+
+	// email
+	Email string
 
 	// github access token
 	Access_token string
@@ -21,7 +31,11 @@ type git_config struct {
 }
 
 
-
+/**
+ *
+ * DS for daemon ping settings
+ *
+**/
 type refresh_config struct {
 
 	// refresh interval
@@ -33,7 +47,11 @@ type refresh_config struct {
 }
 
 
-
+/**
+ *
+ * DS for overall fcd settings
+ *
+**/
 type fcd_config struct {
 
 	// git config
