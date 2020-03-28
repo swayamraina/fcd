@@ -134,10 +134,10 @@ func create_repo (username *string, token *string, repo *string) bool {
 **/
 func add_file (path string, username *string, repo *string, email *string, token *string) bool {
 	b64_content := generate_b64(path)
-	filename := extract_file_name(path)
+	storage_path := extract_storage_path(path)
 	body, err := json.Marshal(create_file_request {
 		  b64_content,
-		 create_friendly_commit_message(filename),
+		 create_friendly_commit_message(storage_path),
 		committer {
 				*username,
 				*email,
@@ -145,7 +145,7 @@ func add_file (path string, username *string, repo *string, email *string, token
 		},
 	)
 	if nil !=  err { panic(err) }
-	url := get_url(github_host, add_file_endpoint, *username, *repo, filename)
+	url := get_url(github_host, add_file_endpoint, *username, *repo, storage_path)
 	response, err := make_put_request(url, body, token)
 	return response.StatusCode == 200 || response.StatusCode == 201
 }
@@ -157,7 +157,8 @@ func add_file (path string, username *string, repo *string, email *string, token
  * request by fcd to github
  *
 **/
-func create_friendly_commit_message (filename string) string {
+func create_friendly_commit_message (storage_path string) string {
+	filename := extract_file_name(storage_path)
 	t := time.Now()
 	return fmt.Sprintf("[ synced : %s ] - %s", t.Format(time.ANSIC), filename)
 }
