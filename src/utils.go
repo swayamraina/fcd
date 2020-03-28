@@ -78,6 +78,15 @@ func extract_file_name (path string) string {
 }
 
 
+func extract_storage_path (path string) string {
+	var index int
+	index = strings.LastIndex(path, "/")
+	index = strings.LastIndex(path[:index], "/")
+	storage_path := path[index+1:]
+	return storage_path
+}
+
+
 /**
  *
  * This utility function extracts out the location of file
