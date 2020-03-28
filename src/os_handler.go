@@ -59,10 +59,10 @@ func create_on_os (path string) bool {
  * been alreday synced to github or is a new file
  *
 **/
-func check_sync (files *[]string) filepath.WalkFunc {
+func check_sync (new_file_paths *[]string) filepath.WalkFunc {
 	return func (path string, info os.FileInfo, err error) error {
 		if !info.IsDir() && !strings.HasPrefix(info.Name(), sync_indicator) {
-			*files = append(*files, path)
+			*new_file_paths = append(*new_file_paths, path)
 		}
 		return nil
 	}
