@@ -1,4 +1,4 @@
-![logo](./resources/flash-card-daemon-banner.png)
+![baner](./resources/flash-card-daemon-banner.png)
 
 <br>
 
@@ -17,17 +17,20 @@ Simply put this is yet another dev-tool which solves one of my problem.
 ## Why did I build this ?
 
 During my time at Airtel X Labs, I was introduced to [Hacker News](https://news.ycombinator.com/news)
-by one of my colleague and I really thank him as he has influenced me a lot. 
+by one of my colleague and I really thank him as he has influenced me a lot and shaped me to be 
+the kind of developer I am today. 
 
-So to keep all the best articles in one place, I created a Google chrome extension which would 
-save all my favourite articles for me. You can say somewhat similar to Pocket. But `flash-card` 
-could only save links of web pages and nnot the document itself. <br> 
-Also, I had been maintaining my collection of research papers, white papers, books etc by downloading 
-them and keeping them in a separate folder. When I made a switch from Airtel X Labs to Swiggy, I 
-had to upload all of them to Google drive and sync when I got a new mac in Swiggy.
+Back to answering the question, to keep all the best articles I read on HN in one place, 
+I created a Google chrome extension which would save all my favourite articles for me. 
+You can say somewhat similar to Pocket. One issue with `flash-card` was it could only save 
+links to the web pages and not the document itself. <br> 
+Also at the same time, I had been maintaining my collection of research papers, white papers, 
+books etc by downloading them and keeping them in a separate folder. 
+So when I made a switch from Airtel X Labs to Swiggy, I had to upload all of them to Google 
+drive and sync when I got a new mac in Swiggy.
 
-Soon, my mac crashed (just after I gave a talk on Redis internally in Swiggy) and all of my data 
-poof! 
+I was happy with everything working fine. Soon, my mac crashed (just after I gave an internal
+talk on Redis in Swiggy) and all of my data went poof! 
 
 This could have been prevented if I had regularly kept everything in sync or used Dropbox or 
 Google drive's local setup.    
@@ -72,6 +75,11 @@ How to actually setup?
 * Run the setup script and input the complete location to your config file
 * Done, Its this simple!
 
+<br>
+
+After some time of use you learning repository will look like this,
+
+![repository](./resources/sample-repo.png)
 
 <br>
 
