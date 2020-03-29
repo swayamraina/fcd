@@ -1,0 +1,15 @@
+# sample config file
+
+git_config:
+   access_token:
+   repo:
+   username:
+   email:
+
+refresh_config:
+   refresh_interval:
+   refresh_unit:
+
+search_locations:
+   -
+   -
