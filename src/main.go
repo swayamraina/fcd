@@ -16,7 +16,7 @@ package main
  *
 **/
 func main () {
-	config := get_config("/Users/swayam.raina/opensrc/fcd/test.yaml")
+	config := get_config()
 	do_setup(&config)
 	daemon(&config)
 }
