@@ -71,9 +71,12 @@ search_locations:
 
 How to actually setup?
 
-* You need to define your config file
-* Run the setup script and input the complete location to your config file
-* Done, Its this simple!
+1. Define your config file (see above mentioned sample file) 
+2. Save this file locally 
+3. Download the setup script using the below command <br>
+  ***`curl -O https://raw.githubusercontent.com/swayamraina/fcd/master/setup.sh`*** 
+4. Run the setup script using this command ***`sh setup.sh`***  
+5. Done, It's this simple!
 
 <br>
 
