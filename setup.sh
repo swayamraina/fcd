@@ -31,4 +31,4 @@ mv ${latest_build} ~/.fcd/
 cd ~/.fcd/
 
 # run fcd
-./${latest_build}
+./${latest_build} &
