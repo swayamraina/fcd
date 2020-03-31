@@ -81,7 +81,7 @@ How to actually setup?
 
 <br>
 
-After some time of use you learning repository will look like this,
+After some time of use, your learning repository should look like this,
 
 ![repository](./resources/sample-repo.png)
 
