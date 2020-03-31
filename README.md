@@ -71,11 +71,12 @@ search_locations:
 
 How to actually setup?
 
-1. Define your config file (see above mentioned sample file) 
-2. Save this file locally 
-3. Download the setup script using the below command <br>
+1. [**Generate**](https://github.com/settings/tokens) an access token on github. 
+2. Define your config file (see above mentioned sample file) 
+3. Save this file locally 
+4. Download the setup script using the below command <br>
   ***`curl -O https://raw.githubusercontent.com/swayamraina/fcd/master/setup.sh`*** 
-4. Run the setup script using this command ***`sh setup.sh`***  
+5. Run the setup script using this command ***`sh setup.sh`***  
 5. Done, It's this simple!
 
 <br>
