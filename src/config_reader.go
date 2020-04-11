@@ -24,7 +24,7 @@ import (
  * are stored
  *
 **/
-const env_file = "/.fcd_env"
+const environment_file = "/.fcd/fcd.env"
 
 
 /**
@@ -51,8 +51,27 @@ func get_config () fcd_config {
 **/
 func get_env_data () string {
 	home := os.Getenv("HOME")
-	path_to_env := home + env_file
-	path, err := ioutil.ReadFile(path_to_env)
+	path_to_env := home + environment_file
+	data, err := ioutil.ReadFile(path_to_env)
 	if err != nil { panic(err) }
-	return strings.TrimSuffix(string(path), "\n")
+	return get_path(string(data))
+}
+
+
+/**
+ *
+ * This function extracts the path to fcd_config yaml
+ * file from the environment file
+ *
+**/
+func get_path (data string) string {
+	var path string
+	envs := strings.Split(data, "\n")
+	for _, env := range envs {
+		kv := strings.Split(env, "=")
+		if "path" == kv[0] {
+			path = kv[1]
+		}
+	}
+	return path
 }
