@@ -113,6 +113,17 @@ func make_post_request (url string, body []byte, token *string) (*http.Response,
 /**
  *
  * This utility function is a wrapper function over
+ * the actual HTTP GET call.
+ *
+**/
+func make_get_request (url string, token *string) (*http.Response, error) {
+	return make_request(get_request, url, nil, token)
+}
+
+
+/**
+ *
+ * This utility function is a wrapper function over
  * the actual HTTP PUT call.
  *
 **/
