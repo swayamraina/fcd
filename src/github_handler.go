@@ -12,7 +12,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
 	"time"
 )
 
@@ -58,6 +57,7 @@ const (
 const (
 	post_request = "POST"
 	put_request = "PUT"
+	get_request = "GET"
 )
 
 
@@ -102,9 +102,9 @@ type create_file_request struct {
  * by the user.
  *
 **/
-func check_repo_exists (username *string, repo *string) bool {
+func check_repo_exists (username *string, token *string, repo *string) bool {
 	url := get_url(github_host, get_repo_endpoint, *username, *repo)
-	response, err := http.Get(url)
+	response, err := make_get_request(url, token)
 	if nil !=  err { panic(err) }
 	return response.StatusCode == 200
 }
@@ -124,7 +124,7 @@ func create_repo (config *git, repo *string) bool {
 	if nil !=  err { panic(err) }
 	url := get_url(github_host, create_repo_endpoint)
 	response, err := make_post_request(url, body, &config.Access_token)
-	return response.StatusCode == 200
+	return response.StatusCode == 200 || response.StatusCode == 201
 }
 
 
