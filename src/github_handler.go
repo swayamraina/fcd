@@ -120,7 +120,7 @@ func create_repo (username *string, token *string, repo *string) bool {
 	if nil !=  err { panic(err) }
 	url := get_url(github_host, create_repo_endpoint)
 	response, err := make_post_request(url, body, token)
-	return response.StatusCode == 200
+	return response.StatusCode == 200 || response.StatusCode == 201
 }
 
 
