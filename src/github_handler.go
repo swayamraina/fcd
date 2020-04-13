@@ -141,7 +141,7 @@ func add_file (path string, config *git, merge bool, repo *string) bool {
 	storage_path := extract_storage_path(path, merge)
 	body, err := json.Marshal(create_file_request {
 		  b64_content,
-		 create_friendly_commit_message(storage_path),
+		 create_commit_message(),
 		committer {
 				config.Username,
 				config.Email,
@@ -161,8 +161,7 @@ func add_file (path string, config *git, merge bool, repo *string) bool {
  * request by fcd to github
  *
 **/
-func create_friendly_commit_message (storage_path string) string {
-	filename := extract_file_name(storage_path)
+func create_commit_message () string {
 	t := time.Now()
-	return fmt.Sprintf("[ synced : %s ] - %s", t.Format(time.ANSIC), filename)
+	return fmt.Sprintf("[ synced : %s ]", t.Format(time.ANSIC))
 }
