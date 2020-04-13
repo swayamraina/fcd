@@ -1,15 +1,23 @@
 # sample config file
 
-git_config:
-   access_token:
-   repo:
-   username:
-   email:
+git:
+   access_token: "xxxxxx"
+   username: "swayaam"
+   email: "swayamraina@gmail.com"
+   private: false
 
-refresh_config:
-   refresh_interval:
-   refresh_unit:
+refresh:
+   interval: 20
+   unit: m
 
-search_locations:
-   -
-   -
+sync:
+   - repo: "dc"
+     merge: false
+     locations:
+        - /comic-con/flash/villan/
+        - /comic-con/batman/villan/
+   - repo: "marvel"
+     merge: true
+     locations:
+        - /comic-con/iron-man/villan/
+        - /comic-con/cap-america/villan/

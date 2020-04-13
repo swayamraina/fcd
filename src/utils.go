@@ -78,10 +78,23 @@ func extract_file_name (path string) string {
 }
 
 
-func extract_storage_path (path string) string {
+/**
+ *
+ * This utility function extracts out the complete path
+ * to the resource including the dir path.
+ * The 'merge' input controls if we need to include the
+ * dir path
+ *
+ * extract_storage_path ("base/path/to/data/welcome.txt", false)
+ * will return "data/welcome.txt"
+ *
+**/
+func extract_storage_path (path string, merge bool) string {
 	var index int
 	index = strings.LastIndex(path, "/")
-	index = strings.LastIndex(path[:index], "/")
+	if !merge {
+		index = strings.LastIndex(path[:index], "/")
+	}
 	storage_path := path[index+1:]
 	return storage_path
 }

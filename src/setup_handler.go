@@ -34,10 +34,10 @@ func do_local_setup (paths *[]string) {
  * the user
  *
 **/
-func  do_git_setup (config *git_config) {
-	exists := check_repo_exists(&config.Username, &config.Repo)
+func  do_git_setup (config *git, repo *string) {
+	exists := check_repo_exists(&config.Username, &config.Access_token, repo)
 	if !exists {
-		create_repo(&config.Username, &config.Access_token, &config.Repo)
+		create_repo(config, repo)
 	}
 }
 
@@ -49,6 +49,8 @@ func  do_git_setup (config *git_config) {
  *
 **/
 func do_setup (config *fcd_config) {
-	do_local_setup(&config.Search_locations)
-	do_git_setup(&config.Git_config)
+	for i:=0; i<len(config.Sync); i++ {
+		do_local_setup(&config.Sync[i].Locations)
+		do_git_setup(&config.Git, &config.Sync[i].Repo)
+	}
 }

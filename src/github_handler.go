@@ -68,6 +68,7 @@ const (
 **/
 type create_repo_request struct {
 	Name string `json:"name"`
+	Private bool `json:"private"`
 }
 
 
@@ -115,11 +116,14 @@ func check_repo_exists (username *string, token *string, repo *string) bool {
  * name for the user on github.
  *
 **/
-func create_repo (username *string, token *string, repo *string) bool {
-	body, err := json.Marshal(create_repo_request{*repo})
+func create_repo (config *git, repo *string) bool {
+	body, err := json.Marshal(create_repo_request {
+		*repo,
+		config.Private,
+	})
 	if nil !=  err { panic(err) }
 	url := get_url(github_host, create_repo_endpoint)
-	response, err := make_post_request(url, body, token)
+	response, err := make_post_request(url, body, &config.Access_token)
 	return response.StatusCode == 200 || response.StatusCode == 201
 }
 
@@ -132,21 +136,21 @@ func create_repo (username *string, token *string, repo *string) bool {
  * this function does not save the file.
  *
 **/
-func add_file (path string, username *string, repo *string, email *string, token *string) bool {
+func add_file (path string, config *git, merge bool, repo *string) bool {
 	b64_content := generate_b64(path)
-	storage_path := extract_storage_path(path)
+	storage_path := extract_storage_path(path, merge)
 	body, err := json.Marshal(create_file_request {
 		  b64_content,
-		 create_friendly_commit_message(storage_path),
+		 create_commit_message(),
 		committer {
-				*username,
-				*email,
+				config.Username,
+				config.Email,
 				},
 		},
 	)
 	if nil !=  err { panic(err) }
-	url := get_url(github_host, add_file_endpoint, *username, *repo, storage_path)
-	response, err := make_put_request(url, body, token)
+	url := get_url(github_host, add_file_endpoint, config.Username, *repo, storage_path)
+	response, err := make_put_request(url, body, &config.Access_token)
 	return response.StatusCode == 200 || response.StatusCode == 201
 }
 
@@ -157,8 +161,7 @@ func add_file (path string, username *string, repo *string, email *string, token
  * request by fcd to github
  *
 **/
-func create_friendly_commit_message (storage_path string) string {
-	filename := extract_file_name(storage_path)
+func create_commit_message () string {
 	t := time.Now()
-	return fmt.Sprintf("[ synced : %s ] - %s", t.Format(time.ANSIC), filename)
+	return fmt.Sprintf("[ synced : %s ]", t.Format(time.ANSIC))
 }
