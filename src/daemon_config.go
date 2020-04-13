@@ -14,20 +14,11 @@ package main
  * DS for github connection
  *
 **/
-type git_config struct {
-
-	// github username
+type git struct {
 	Username string
-
-	// email
 	Email string
-
-	// github access token
 	Access_token string
-
-	// github repo
-	Repo string
-
+	Private bool
 }
 
 
@@ -36,14 +27,24 @@ type git_config struct {
  * DS for daemon ping settings
  *
 **/
-type refresh_config struct {
+type refresh struct {
+	Interval int64
+	Unit string
+}
 
-	// refresh interval
-	Refresh_interval int64
 
-	// refresh unit
-	Refresh_unit string
-
+/**
+ *
+ * DS for syncing data between the repo and
+ * the location on the hardware.
+ * Note that the 'dirs' field tells fcd to treat
+ * these locations as separate directories or not
+ *
+**/
+type sync struct {
+	Repo string
+	Locations []string
+	Merge bool
 }
 
 
@@ -53,14 +54,7 @@ type refresh_config struct {
  *
 **/
 type fcd_config struct {
-
-	// git config
-	Git_config git_config
-
-	//  refresh config
-	Refresh_config refresh_config
-
-	// daemon search paths
-	Search_locations []string
-
+	Git git
+	Refresh refresh
+	Sync []sync
 }
