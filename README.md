@@ -52,19 +52,27 @@ the sync process.
 Here is a sample yaml config file,
 
 ```yaml
-git_config:
-   access_token: "xxxxxxxxxx"
-   repo: "flash-drive"
-   username: "flash"
-   email: "flash@dc.com"
+git:
+   access_token: "xxxxxx"
+   username: "swayam"
+   email: "swayamraina@gmail.com"
+   private: false
 
-refresh_config:
-   refresh_interval: 30
-   refresh_unit: m
+refresh:
+   interval: 20
+   unit: m
 
-search_locations:
-   - /Users/flash/Desktop/comics/
-   - /Users/flash/Desktop/secret-plans/
+sync:
+   - repo: "dc"
+     merge: false
+     locations:
+        - /comic-con/flash/villan/
+        - /comic-con/batman/villan/
+   - repo: "marvel"
+     merge: true
+     locations:
+        - /comic-con/iron-man/villan/
+        - /comic-con/cap-america/villan/
 ```  
 
 <br>
