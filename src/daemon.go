@@ -35,11 +35,14 @@ const default_sleep = 10 * 60 * 1000
 **/
 func daemon (config *fcd_config)  {
 	for true {
-		new_file_paths := scan_all(&config.Search_locations)
-		if new_file_paths != nil {
-			sync_all(&new_file_paths, &config.Git_config)
+		for i:=0; i<len(config.Sync); i++ {
+			new_file_paths := scan_all(&config.Sync[i].Locations)
+			if new_file_paths != nil {
+				sync_all(&new_file_paths, &config.Sync[i].Repo, config.Sync[i].Merge, &config.Git)
+			}
+			new_file_paths = nil
 		}
-		sleep(&config.Refresh_config)
+		sleep(&config.Refresh)
 	}
 }
 
@@ -80,9 +83,9 @@ func scan (path *string) []string {
  * to github. It syncs all files to github one by one
  *
 **/
-func sync_all (paths *[]string, config *git_config)  {
+func sync_all (paths *[]string, repo *string, merge bool, config *git)  {
 	for _, path := range *paths {
-		sync(path, *config)
+		sync_one(path, repo, merge, config)
 	}
 }
 
@@ -96,8 +99,8 @@ func sync_all (paths *[]string, config *git_config)  {
  * sync.
  *
 **/
-func sync (path string, config git_config) bool {
-	sync := add_file(path, &config.Username, &config.Repo, &config.Email, &config.Access_token)
+func sync_one (path string, repo *string, merge bool, config *git) bool {
+	sync := add_file(path, config, merge, repo)
 	mark := mark_sync(path)
 	return sync && mark
 }
@@ -112,9 +115,9 @@ func sync (path string, config git_config) bool {
  * Any value less than 10 minutes will be neglected
  *
 **/
-func sleep (config *refresh_config) {
-	freq := config.Refresh_interval
-	unit := config.Refresh_unit
+func sleep (config *refresh) {
+	freq := config.Interval
+	unit := config.Unit
 	var multiplier int64
 	switch unit {
 		case "s": multiplier = 1000
