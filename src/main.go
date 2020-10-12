@@ -17,6 +17,8 @@ package main
 **/
 func main () {
 	config := get_config()
-	do_setup(&config)
-	daemon(&config)
+	success := true //do_setup(&config)
+	if success {
+		daemon(&config)
+	}
 }

@@ -48,7 +48,7 @@ func check_on_os (path string) bool {
  *
 **/
 func create_on_os (path string) bool {
-	err := os.Mkdir(path, os.ModePerm)
+	err := os.MkdirAll(path, os.ModePerm)
 	return err == nil
 }
 
@@ -61,6 +61,7 @@ func create_on_os (path string) bool {
 **/
 func check_sync (new_file_paths *[]string) filepath.WalkFunc {
 	return func (path string, info os.FileInfo, err error) error {
+		if err != nil { return err }
 		if !info.IsDir() && !strings.HasPrefix(info.Name(), sync_indicator) {
 			*new_file_paths = append(*new_file_paths, path)
 		}
@@ -73,7 +74,7 @@ func check_sync (new_file_paths *[]string) filepath.WalkFunc {
  *
  * This function marks a specified file as synced.
  * fcd adds a marker in the beginning of the filename
- * to maark the file as synced.
+ * to mark the file as synced.
  *
 **/
 func mark_sync (path string) bool {
