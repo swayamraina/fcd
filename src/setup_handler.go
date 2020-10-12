@@ -8,6 +8,7 @@
 
 package main
 
+import "errors"
 
 /**
  *
@@ -16,13 +17,17 @@ package main
  * if it does not, creates the dir on file-system
  *
 **/
-func do_local_setup (paths *[]string) {
+func do_local_setup (paths *[]string) error {
 	for i:=0; i<len(*paths); i++ {
 		exists := check_on_os((*paths)[i])
 		if !exists {
-			create_on_os((*paths)[i])
+			success := create_on_os((*paths)[i])
+			if !success {
+				return errors.New("file setup failed")
+			}
 		}
 	}
+	return nil
 }
 
 
@@ -48,9 +53,13 @@ func  do_git_setup (config *git, repo *string) {
  * actual setup wrapper functions.
  *
 **/
-func do_setup (config *fcd_config) {
+func do_setup (config *fcd_config) bool {
 	for i:=0; i<len(config.Sync); i++ {
-		do_local_setup(&config.Sync[i].Locations)
+		err := do_local_setup(&config.Sync[i].Locations)
+		if err != nil {
+			return false
+		}
 		do_git_setup(&config.Git, &config.Sync[i].Repo)
 	}
+	return true
 }
