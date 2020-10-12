@@ -39,6 +39,8 @@ if [[ ${selection} -eq 'y' || ${selection} -eq 'Y' ]]; then
     curl -O ${BUILD_BASE_URL}${latest_build} 2> /dev/null
     chmod +x ${latest_build}
     mv ${latest_build} fcd
+    echo "updating metadata..."
+    echo ${latest_build} > ~/.fcd/latest_build
 fi
 
 echo "setting up environment file..."
